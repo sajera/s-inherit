@@ -17,7 +17,6 @@
 		if (superCtor.prototype === undefined)
 			throw new TypeError('The super constructor to "inherits" must have a prototype');
 
-
 		// ctor.super_ = superCtor;
 		Object.defineProperty(ctor, 'super', {
 			value: superCtor,
@@ -30,7 +29,7 @@
 	// plifill
 	var setPrototypeOfPolifill = (function ( native ) {
 		if ( typeof native == 'function' ) return native.bind(Object);
-		// slower MDN => https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf
+		// slower than the native. MDN => https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf
 		else return function ( obj, proto ) {
 			obj.__proto__ = proto;
 			return obj;
@@ -57,12 +56,6 @@
 		if ( typeof Child._setSuper == 'function' ) {
 			Child._setSuper.call(Class.prototype, Parent );
 		}
-		// Object.defineProperty(Class, 'super_', {
-		// 	value: Parent,
-		// 	writeble: false,
-		// 	enumerable: false,
-		// 	configurable: false
-		// });
 		return Class.prototype.constructor = Class;
 	}
 
@@ -85,20 +78,9 @@
 	}
 
 	/**
-	 * create a new class - wrapper wich check correct data type and recall a class maker for each arguments
-	 * every constructor
-	 * @param: { Function } - Any count classes first is a base and alse like a decorate for prototype
-	 * @returns: { Function } - Class child with child prototype wich inherit all parents
-	 */
-	nodeInherits.extendsMulty = function ( Result ) {
-
-	}
-
-
-	/**
 	 * return new class and used each seted class like a decorator
 	 *
-	 * @param: { Function } - Any count classes first is a base and alse like a decorate for prototype
+	 * @param: { Function||Object } - Any count classes first is a base and alse like a decorate for prototype
 	 * @returns: { Function } - Class child with child prototype wich inherit all parents
 	 */
 	nodeInherits.decorate = decorate;
@@ -111,31 +93,6 @@
 				else if ( typeof args[key] == 'object' ) Object.assign(this, args[key]);
 		}
 		return Class;
-	}
-	/**
-	 * return new class and used each seted class like a decorator
-	 *
-	 * @param: { Function } - Any count classes first is a base and alse like a decorate for prototype
-	 * @returns: { Function } - Class child with child prototype wich inherit all parents
-	 */
-	function extendProto ( Class, proto ) {
-		function Super ( base ) { Object.assign(this, base); };
-		Super.prototype = proto;
-		Super.prototype.getSuper = function () {
-
-		}
-		// var Class = decorate();
-		// // its bad with many inherit
-		// Object.defineProperty(Class, 'super', {
-		// 	value: Parent,
-		// 	writable: false,
-		// 	enumerable: false,
-		// 	configurable: false
-		// });
-		// Super.prototype = Parent.prototype;
-		// Class.prototype = new Super( Child.prototype );
-		// return Class.prototype.constructor = Class;
-
 	}
 
 	/**
