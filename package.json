@@ -1,0 +1,21 @@
+{
+  "name": "s-inherit",
+  "version": "0.9.1",
+  "description": "Make inherits in es5",
+  "main": "index.js",
+  "scripts": {
+    "debug": "devtool test"
+  },
+  "homepage": "https://github.com/sajera/s-inherit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sajera/s-inherit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sajera/s-inherit/issues"
+  },
+  "keywords": ["s-inherit", "inherit"],
+  "author": "Sajera: Serhii P <allsajera@gmail.com>",
+  "license": "MIT",
+  "dependencies": {}
+}
