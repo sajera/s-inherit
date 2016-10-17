@@ -1,3 +1,6 @@
+
+[![NPM version][npm-image]][npm-url]
+
 s-inherit
 ===============
 An easy way to make inheritance classes
@@ -197,3 +200,7 @@ Foo4.prototype = {
     }
 };
 ```
+
+
+[npm-image]: https://badge.fury.io/js/s-inherit.svg
+[npm-url]: https://npmjs.org/package/s-inherit
