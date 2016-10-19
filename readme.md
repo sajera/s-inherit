@@ -193,22 +193,26 @@ function Foo4 () {
     console.log('Foo4', arguments);
     this.source4 = 'Foo4';
 }
-/*-------------------------------------------------
-    WTF ???
-        it's method to set super by unique name for this Class
----------------------------------------------------*/
-Foo4._setSuper = function ( Super ) {
-    // you can call to super or super prototype by this unique name
-    this.foo4Super = this.foo4Super||Super;
-};
 
 Foo4.prototype = {
     constructor: Foo4,
     instance: 'Foo4',
     t4: 'Foo4',
     test: function ( some ) {
-        this.foo4Super.prototype.test(' foo4 '+ some);
+        this[Super].prototype.test(' foo4 '+ some);
     }
+};
+
+/*-------------------------------------------------
+    WTF ???
+        it's method to set super by unique name for this Class
+        I think this is a good solution for es6
+        Since the syntax of classes implementing in ES6 more limits the javascript classes, than expanding their.
+---------------------------------------------------*/
+var Super = Symbol();
+Foo4._setSuper = function ( Parent ) {
+    // you can call to super or super prototype by this unique name
+    this[Super] = this[Super]||Parent;
 };
 ```
 
