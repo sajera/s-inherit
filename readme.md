@@ -3,14 +3,17 @@
 
 s-inherit
 ===============
+
 An easy way to make inheritance classes
 
+### installation
 ```shell
 npm i s-inherit --save
 ```
 
 Inherit
 --------------
+
 Node util "inherits" gives the mode of inheritance. 
 
 ```javascript
@@ -45,6 +48,7 @@ instance.test('test');
     
 Make class from others
 --------------
+
 When classes inheritance, class which inherit got a link to super and broken for origin.Thoughts on the re-use base classes led to the idea - to create a new class that inherits but does not overwrite the other (basic / decorating). This results in the creation of necessary classes on the basis of any previously created and does not prevent their reuse further.
 
 
@@ -80,6 +84,7 @@ Dummy.prototype = {
 ```
 
 after that, setting a base functionality (by type of model or something like that)
+
 ```javascript
 function Base1 () {
     console.log('Base1', arguments);
@@ -110,6 +115,7 @@ Base2.prototype = {
 
 
 after that, we want set a functionality the model for this implementation
+
 ```javascript
 function Foo3 () {
     console.log('Foo3', arguments);
@@ -137,7 +143,9 @@ Foo4.prototype = {
     },
 };
 ```
+
 after that, we want a decorate the model for this implementation
+
 ```javascript
 function Decor5 () {
     console.log('Decor5', arguments);
@@ -165,8 +173,10 @@ var NewClassFromBase = inherit.extend(Dummy, Base1, Foo2, Decor5);
 var NewClassLightBase = inherit.extend(Dummy, Base2, Foo3, Decor6);
 
 ```
+
 Super
 --------------
+
 >**say -** "We wanna get a SUPER - and that super must be a unique for each model which we defined"
 
 This is a difficult moment. But I have a proposal for its decision. Since multiple inheritance, the main problem for a unique index transmission, within a single prototype class parent.
@@ -177,6 +187,7 @@ Extension expects a special method called "_setSuper" and correctly sends back t
 
 
 **Example:**
+
 ```javascript
 function Foo4 () {
     console.log('Foo4', arguments);
