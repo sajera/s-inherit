@@ -181,7 +181,7 @@ Super
 
 This is a difficult moment. But I have a proposal for its decision. Since multiple inheritance, the main problem for a unique index transmission, within a single prototype class parent.
 
-**ans -** "I offer to attend to yourself about how to point out the Super"
+>**ans -** "I offer to attend to yourself about how to point out the Super"
 
 Extension expects a special method called "_setSuper" and correctly sends back the super of model.
 
