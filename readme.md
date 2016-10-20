@@ -183,7 +183,7 @@ This is a difficult moment. But I have a proposal for its decision. Since multip
 
 >**ans -** "I offer to attend to yourself about how to point out the Super"
 
-Extension expects a special method called "_setSuper" and correctly sends back the super of model.
+Extension expects a special method called "_setSuper" and correctly sends the super of model.
 
 
 **Example:**
@@ -215,6 +215,29 @@ Foo4._setSuper = function ( Parent ) {
     this[Super] = this[Super]||Parent;
 };
 ```
+
+Decorate
+--------------
+
+Sometimes you need to make a decoration of the model, adding methods and fields for a particular implementation without affecting its inheritance, and without breaking the original class. How can it be.
+
+
+**Example:**
+
+```javascript
+var inherit = require('s-inherit');
+
+// make new class decorated for existing class of existing decorator and addition source
+var DecoratedFoo4 = inherit.decorate(Foo4, Decor6, {
+    anotherSource: 'anotherSource'
+});
+
+var instance = new DecoratedFoo4( 'test' );
+
+instance.__proto__ == Foo4.prototype;
+```
+>**Note:** scenery method ignores the prototypes of the classes and objects used for decorations .
+
 
 
 [npm-image]: https://badge.fury.io/js/s-inherit.svg

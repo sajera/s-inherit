@@ -85,13 +85,13 @@
 	 */
 	nodeInherits.decorate = decorate;
 	function decorate () {
-		Class.prototype = arguments[0].prototype;
 		var args = arguments;
 		function Class () {
 			for ( var key = 0; key < args.length; key ++ )
 				if ( typeof args[key] == 'function' ) args[key].apply(this, Array.prototype.slice.call(arguments, 0));
 				else if ( typeof args[key] == 'object' ) Object.assign(this, args[key]);
 		}
+		Class.prototype = args[0].prototype;
 		return Class;
 	}
 
