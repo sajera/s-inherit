@@ -1,5 +1,6 @@
 
 [![NPM version][npm-image]][npm-url]
+[![License][license-image]][license-url]
 
 s-inherit
 ===============
@@ -242,3 +243,5 @@ instance.__proto__ == Foo4.prototype;
 
 [npm-image]: https://badge.fury.io/js/s-inherit.svg
 [npm-url]: https://npmjs.org/package/s-inherit
+[license-image]: http://img.shields.io/npm/l/s-inherit.svg
+[license-url]: LICENSE
