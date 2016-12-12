@@ -130,12 +130,18 @@ function Decor6 () {
     this.args = arguments;
     this.source6 = 'Decor6';
 }
-
 // without broken origin classes
+console.time('Extend class');
 var NewClass = inherit.extend(Dummy, Base1, Base2, Foo3, Foo4, Decor5, Decor6);
-window.instance = new NewClass('best');
+console.timeEnd('Extend class');
 
+console.time('Instantiate class');
+window.instance = new NewClass('best');
+console.timeEnd('Instantiate class');
+
+console.time('Execute multilevel method');
 instance.test('instance.test');
+console.timeEnd('Execute multilevel method');
 
 if ( typeof window != 'undefined' ) {
     window.inherit = inherit;
