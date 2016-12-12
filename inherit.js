@@ -4,7 +4,7 @@
  */
 (function () {'use strict';
 
-// plifill
+// polifill
 var setPrototypeOfPolifill = (function ( native ) {
     if ( typeof native == 'function' ) return native.bind(Object);
     // slower than the native. MDN => https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf
@@ -67,7 +67,7 @@ function makeClass ( Parent, Child ) {
 /**
  * create a new class - wrapper wich check correct data type and recall a class maker for each arguments
  * 
- * @param ALL: { Function } - Any count classes first is a base and alse like a decorate for prototype
+ * @params ALL: { Function } - Any count classes first is a base and alse like a decorate for prototype
  * @returns: { Function } - Class child with child prototype wich inherit all parents
  */
 inherit['extend'] = classExtend;
@@ -83,13 +83,13 @@ function classExtend ( Result ) {
 }
 
 /**
- * return new class and used each seted class like a decorator
+ * return new class and used each seted class or objects like a decorator
  *
  * @param: { Function||Object } - Any count classes first is a base and alse like a decorate for prototype
  * @returns: { Function } - Class child with child prototype wich inherit all parents
  */
-inherit['decorate'] = decorate;
-function decorate () {
+inherit['decorate'] = decorateClass;
+function decorateClass () {
     var args = arguments;
     function Class () {
         for ( var key = 0; key < args.length; key ++ )
@@ -99,6 +99,7 @@ function decorate () {
     Class.prototype = args[0].prototype;
     return Class;
 }
+
 /**
  * EXPORTS
  *
