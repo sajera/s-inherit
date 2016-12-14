@@ -1,0 +1,32 @@
+{
+    "name": "s-inherit",
+    "main": "inherit.min.js",
+    "version": "1.0.0",
+    "private": false,
+    "description": "Make inherits in es5",
+    "ignore": [
+        "node_modules",
+        "bower_components",
+        "package.json",
+        "bower.json",
+        "gulpfile.js",
+        "lib",
+        "test",
+        "test.*"
+    ],
+    "keywords": [
+        "s-inherit",
+        "inherit"
+    ],
+    "homepage": "https://github.com/sajera/s-inherit",
+    "authors": [
+        "Sajera: Serhii P <allsajera@gmail.com>"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sajera/s-inherit.git"
+    },
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {}
+}

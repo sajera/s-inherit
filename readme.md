@@ -7,9 +7,18 @@ s-inherit
 
 An easy way to make inheritance classes
 
-### installation
+**Let me introduce an easy way to make inheritance classes.**
+
+### installation for ```Node.js```
+
 ```shell
 npm i s-inherit --save
+```
+
+### installation for ```Browser```
+
+```shell
+bower i s-inherit --save
 ```
 
 Inherit
@@ -18,21 +27,21 @@ Inherit
 Node util "inherits" gives the mode of inheritance. 
 
 ```javascript
-function Dummy () { this.source = 'Dummy'; }
+function Dummy () {}
 Dummy.prototype = {
     constructor: Dummy,
     test: function ( some ) {
-        console.log(' dummy '+this.source, some);
+        console.log('Dummy ', some);
     }
 };
 function Base () {
-    this.constructor.super.call(this);
-    this.source1 = 'Base'
+    Base.super.call(this);
+    this.source = 'source'
 }
 Base.prototype = {
     constructor: Base,
     test: function ( some ) { // yes rewrite to "super" (not "_super" or "super_") 
-        this.constructor.super.prototype.test(' base '+this.source1+ some);
+        Base.super.prototype.test('Base '+this.source+' '+ some);
     }
 };
 
@@ -42,7 +51,7 @@ inherit(Base, Dummy);
 // make a instance
 var instance = new Base();
 // use method which used parent method
-instance.test('test');
+instance.test('test'); // => Dummy Base source test
 ```
 
 
