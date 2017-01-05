@@ -1,9 +1,11 @@
 
 var gulp = require('gulp');
 var wrapper = require('gulp-wrap');
-var anonymous = '(function () {\'use strict\';\n<%= contents %>\n})()';
-var license = '/**\n * s-inherit\
-    \n * MIT License Copyright (c) 2016 Serhii Perekhrest <allsajera@gmail.com> ( Sajera )\
+var pkg = require('./package.json');
+var date = (new Date).toISOString().substring(0,10);
+var anonymous = '/** @ignore */\n(function () {\'use strict\';\n<%= contents %>\n})()';
+var license = '/*\n * s-inherit version '+pkg.version+' at '+date+
+    '\n * @license MIT License Copyright (c) 2016 Serhii Perekhrest <allsajera@gmail.com> ( Sajera )\
     \n */\n<%= contents %> ';
 
 
@@ -15,7 +17,7 @@ function src ( name ) {
             'decorate.js',
             'define.js'
         ]))
-        .pipe( require('gulp-concat')(name||'declare.js') )
+        .pipe( require('gulp-concat')(name||'inherit.js') )
         .pipe( wrapper(anonymous) );
 }
 
