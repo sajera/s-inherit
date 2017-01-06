@@ -1,8 +1,8 @@
 {
   "name": "s-inherit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Make inherits in es5",
-  "main": "index.js",
+  "main": "inherit.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "rebuild": "gulp concat&gulp minify",
