@@ -1,7 +1,8 @@
-/**
- * s-inherit    
- * MIT License Copyright (c) 2016 Serhii Perekhrest <allsajera@gmail.com> ( Sajera )    
+/*
+ * s-inherit version 1.0.3 at 2018-01-24
+ * @license MIT License Copyright (c) 2016 Serhii Perekhrest <allsajera@gmail.com> ( Sajera )    
  */
+/** @ignore */
 (function () {'use strict';
 
 // polifill
