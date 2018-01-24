@@ -1,0 +1,411 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>s-inherit 1.0.3 | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+  <link href='assets/split.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>s-inherit</h3>
+          <div class='mb1'><code>1.0.3</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#inherit'
+                  class="">
+                  inherit
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#makeclass'
+                  class="">
+                  makeClass
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#extend'
+                  class="">
+                  extend
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#decorate'
+                  class="">
+                  decorate
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#exports'
+                  class="">
+                  exports
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='inherit'>
+      inherit
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>origin inherit from node util
+BUT super called like "super"</p>
+
+
+  <div class='pre p1 fill-light mt0'>inherit(ctor: any, superCtor: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ctor</span> <code class='quiet'>(any)</code>
+	    : { Function }      - constructor to extend
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>superCtor</span> <code class='quiet'>(any)</code>
+	    : { Function } - constructor which be setted like "super"
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='makeclass'>
+      makeClass
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>create new Class with relations like Parent and Child</p>
+
+
+  <div class='pre p1 fill-light mt0'>makeClass(Parent: any, Child: any): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Parent</span> <code class='quiet'>(any)</code>
+	    : { Function }
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Child</span> <code class='quiet'>(any)</code>
+	    : { Function }
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        : { Function }
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='extend'>
+      extend
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>create a new class - wrapper wich check correct data type and recall a class maker for each arguments</p>
+
+
+  <div class='pre p1 fill-light mt0'>extend</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        : { Function } - Class child with child prototype wich inherit all parents
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='decorate'>
+      decorate
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>return new class and used each seted class or objects like a decorator</p>
+
+
+  <div class='pre p1 fill-light mt0'>decorate</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>null</span> <code class='quiet'>(any)</code>
+	    : { Function||Object } - Any count classes first is a base and alse like a decorate for prototype
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        : { Function } - Class child with child prototype wich inherit all parents
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='exports'>
+      exports
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>EXPORTS</p>
+
+
+  <div class='pre p1 fill-light mt0'>exports</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
