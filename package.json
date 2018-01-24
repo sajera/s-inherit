@@ -1,12 +1,12 @@
 {
   "name": "s-inherit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Make inherits in es5",
-  "main": "inherit.min.js",
+  "main": "s-inherit.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "rebuild": "gulp concat&gulp minify",
-    "debug": "devtool test/test"
+    "rebuild": "gulp build&gulp doc&gulp doc-md&npm run tables",
+    "test": "gulp lint&gulp test",
+    "debug": "devtool s-inherit"
   },
   "homepage": "https://github.com/sajera/s-inherit#readme",
   "repository": {
@@ -16,15 +16,25 @@
   "bugs": {
     "url": "https://github.com/sajera/s-inherit/issues"
   },
-  "keywords": ["s-inherit", "inherit"],
+  "keywords": [
+    "s-inherit",
+    "inherit"
+  ],
   "author": "Sajera: Serhii P <allsajera@gmail.com>",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "chai": "^3.5.0",
+    "documentation": "^5.3.5",
+    "eslint": "^3.19.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "gulp-documentation": "^3.2.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-mocha": "^3.0.1",
     "gulp-order": "^1.1.1",
-    "gulp-uglify": "^2.0.0",
-    "gulp-wrap": "^0.13.0"
+    "gulp-uglify": "^2.1.2",
+    "gulp-wrap": "^0.13.0",
+    "mocha": "^3.5.3"
   }
 }

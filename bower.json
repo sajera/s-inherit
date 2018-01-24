@@ -1,6 +1,6 @@
 {
     "name": "s-inherit",
-    "main": "inherit.min.js",
+    "main": "s-inherit.min.js",
     "version": "1.0.0",
     "private": false,
     "description": "Make inherits in es5",
