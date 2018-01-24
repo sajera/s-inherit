@@ -4,7 +4,7 @@
   "description": "Make inherits in es5",
   "main": "s-inherit.min.js",
   "scripts": {
-    "rebuild": "gulp build&gulp doc&gulp doc-md&npm run tables",
+    "rebuild": "gulp build&gulp doc&gulp doc-md",
     "test": "gulp lint&gulp test",
     "debug": "devtool s-inherit"
   },
