@@ -1,3 +1,53 @@
+/*
+ * s-inherit version 1.0.3 at 2018-01-24
+ * @license MIT License Copyright (c) 2016 Serhii Perekhrest <allsajera@gmail.com> ( Sajera )    
+ */
+/** @ignore */
+(function () {'use strict';
+
+// polifill
+var setPrototypeOfPolifill = (function ( native ) {
+    if ( typeof native == 'function' ) return native.bind(Object);
+    // slower than the native. MDN => https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf
+    else return function ( obj, proto ) {
+        obj.__proto__ = proto;
+        return obj;
+    }
+})( Object.setPrototypeOf );
+
+/**
+ * @description
+    origin inherit from node util
+    BUT super called like "super"
+ * @example
+    var inherit = require('s-inherit');
+    var DecoratedClass = inherit(Class, Parent);
+ * @param { Function } ctor - constructor to extend
+ * @param { Function } superCtor - constructor which will be installed as "super"
+ * @returns { Function } - constructor
+ * @function inherit
+ * @public
+ */
+function inherit ( ctor, superCtor ) {
+    if (ctor === undefined || ctor === null)
+        throw new TypeError('The constructor to "inherits" must not be null or undefined');
+
+    if (superCtor === undefined || superCtor === null)
+        throw new TypeError('The super constructor to "inherits" must not be null or undefined');
+
+    if (superCtor.prototype === undefined)
+        throw new TypeError('The super constructor to "inherits" must have a prototype');
+
+    Object.defineProperty(ctor, 'super', {
+        value: superCtor,
+        writable: false,
+        enumerable: false,
+        configurable: false
+    });
+
+    setPrototypeOfPolifill(ctor.prototype, superCtor.prototype);
+}
+
 
  /**
   * @description
@@ -90,3 +140,50 @@ function classExtend ( Result ) {
         return Result;
     } else throw new TypeError('The constructor to "inherit" must be a function');
 }
+
+/**
+ * @description
+    Make a new class using every transferred class and/or Object as decorator.
+ * @example
+    var inherit = require('s-inherit');
+    var DecoratedClass = inherit.decorate(Class, Parent, Grandpa, {pa_of: 'grandpa'});
+ * @param { Function||Object } - Any count classes first is a base and alse like a decorate for prototype
+ * @param ...
+ * @returns { Function } - Class child with child prototype wich inherit all parents
+ * @function inherit.decorate
+ * @public
+ */
+inherit['decorate'] = decorateClass;
+function decorateClass () {
+    var args = arguments;
+    function Class () {
+        for ( var key = 0; key < args.length; key ++ )
+            if ( typeof args[key] == 'function' ) args[key].apply(this, Array.prototype.slice.call(arguments, 0));
+            else if ( typeof args[key] == 'object' ) Object.assign(this, args[key]);
+    }
+    Class.prototype = args[0].prototype;
+    return Class;
+}
+
+/**
+ * @description
+    defination on platforms (both variants on platform like Electron)
+
+    bower i --save s-inherit
+
+    npm i --save s-inherit
+
+ * @example window.inherit                      // in browser
+ * @example var inherit = require('s-inherit')  // in Node.js
+ *
+ * @exports s-inherit
+ * @public
+ */
+if ( typeof process != 'undefined' && Object.prototype.toString.call(process) == '[object process]' ) {
+    module.exports = inherit;
+}
+if ( typeof window != 'undefined' && Object.prototype.toString.call(window) == '[object Window]' ) {
+    window['inherit'] = inherit;
+}
+
+})() 
