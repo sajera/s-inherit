@@ -35,9 +35,9 @@
               
                 
                 <li><a
-                  href='#makeclass'
+                  href='#inherit_related'
                   class="">
-                  makeClass
+                  inherit._related
                   
                 </a>
                 
@@ -45,9 +45,9 @@
               
                 
                 <li><a
-                  href='#extend'
+                  href='#inheritextend'
                   class="">
-                  extend
+                  inherit.extend
                   
                 </a>
                 
@@ -55,9 +55,9 @@
               
                 
                 <li><a
-                  href='#decorate'
+                  href='#inheritdecorate'
                   class="">
-                  decorate
+                  inherit.decorate
                   
                 </a>
                 
@@ -100,7 +100,7 @@
 BUT super called like "super"</p>
 
 
-  <div class='pre p1 fill-light mt0'>inherit(ctor: any, superCtor: any)</div>
+  <div class='pre p1 fill-light mt0'>inherit(ctor: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>, superCtor: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></div>
   
   
 
@@ -117,8 +117,8 @@ BUT super called like "super"</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>ctor</span> <code class='quiet'>(any)</code>
-	    : { Function }      - constructor to extend
+            <span class='code bold'>ctor</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    constructor to extend
 
           </div>
           
@@ -126,8 +126,8 @@ BUT super called like "super"</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>superCtor</span> <code class='quiet'>(any)</code>
-	    : { Function } - constructor which be setted like "super"
+            <span class='code bold'>superCtor</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    constructor which will be installed as "super"
 
           </div>
           
@@ -139,9 +139,24 @@ BUT super called like "super"</p>
   
 
   
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>:
+        constructor
+
+      
+    
+  
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">var</span> inherit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'s-inherit'</span>);
+<span class="hljs-keyword">var</span> DecoratedClass = inherit(Class, Parent);</pre>
+    
   
 
   
@@ -159,18 +174,21 @@ BUT super called like "super"</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='makeclass'>
-      makeClass
+    <h3 class='fl m0' id='inherit_related'>
+      inherit._related
     </h3>
     
     
   </div>
   
 
-  <p>create new Class with relations like Parent and Child</p>
+  <p>Make new Constructor with nested construction of a chain of prototypes
+hard relation of child constructor to parent constructor.
+The "super" defined from static method "_setSuper".
+If it absent Constructor lose ability call to Parent context.</p>
 
 
-  <div class='pre p1 fill-light mt0'>makeClass(Parent: any, Child: any): any</div>
+  <div class='pre p1 fill-light mt0'>inherit._related(Parent: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>, Child: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></div>
   
   
 
@@ -187,8 +205,8 @@ BUT super called like "super"</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>Parent</span> <code class='quiet'>(any)</code>
-	    : { Function }
+            <span class='code bold'>Parent</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    constructor which will be installed as "super"
 
           </div>
           
@@ -196,8 +214,8 @@ BUT super called like "super"</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>Child</span> <code class='quiet'>(any)</code>
-	    : { Function }
+            <span class='code bold'>Child</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    constructor to extend
 
           </div>
           
@@ -211,8 +229,8 @@ BUT super called like "super"</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>any</code>:
-        : { Function }
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>:
+        constructor
 
       
     
@@ -220,6 +238,26 @@ BUT super called like "super"</p>
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">var</span> inherit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'s-inherit'</span>);
+<span class="hljs-comment">//</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params"></span>) </span>{ ... }
+<span class="hljs-comment">//</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params"> data </span>) </span>{
+<span class="hljs-comment">// Adding personal owned properties to the parent</span>
+<span class="hljs-keyword">this</span>.superUniqueProperty.call(<span class="hljs-keyword">this</span>, data);
+<span class="hljs-comment">// own properties of the constructor and/or overrides</span>
+<span class="hljs-keyword">this</span>.props = <span class="hljs-number">1</span>;
+}
+Child._setSuper = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> Parent </span>) </span>{
+<span class="hljs-keyword">this</span>.superUniqueProperty = Parent;
+}
+<span class="hljs-comment">// Constructor with nested construction of a chain of prototypes</span>
+<span class="hljs-keyword">var</span> Inheritor = inherit._related(Parent, Child);</pre>
+    
   
 
   
@@ -237,28 +275,46 @@ BUT super called like "super"</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='extend'>
-      extend
+    <h3 class='fl m0' id='inheritextend'>
+      inherit.extend
     </h3>
     
     
   </div>
   
 
-  <p>create a new class - wrapper wich check correct data type and recall a class maker for each arguments</p>
+  <p>Make new Constructor with nested construction of a chain of prototypes
+hard relation of child constructor to parent constructor.
+The "super" defined from static method "_setSuper".
+If it absent Constructor lose ability call to Parent context.
+No limit for nested construction of a chain of prototypes.</p>
 
 
-  <div class='pre p1 fill-light mt0'>extend</div>
-  
-  
-
-  
-  
-  
-  
+  <div class='pre p1 fill-light mt0'>inherit.extend(Ctor: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></div>
   
   
 
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Ctor</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    constructor to extend
+
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -266,8 +322,8 @@ BUT super called like "super"</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>any</code>:
-        : { Function } - Class child with child prototype wich inherit all parents
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>:
+        constructor
 
       
     
@@ -275,6 +331,33 @@ BUT super called like "super"</p>
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">var</span> inherit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'s-inherit'</span>);
+<span class="hljs-comment">// it will give ability to combine inheritance any to any</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent1</span> (<span class="hljs-params"></span>) </span>{ ... }
+Parent1._setSuper = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> Parent </span>) </span>{ <span class="hljs-keyword">this</span>.p1 = Parent; }
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent2</span> (<span class="hljs-params"></span>) </span>{ ... }
+Parent2._setSuper = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> Parent </span>) </span>{ <span class="hljs-keyword">this</span>.p2 = Parent; }
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent3</span> (<span class="hljs-params"></span>) </span>{ ... }
+Parent3._setSuper = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> Parent </span>) </span>{ <span class="hljs-keyword">this</span>.p3 = Parent; }
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent4</span> (<span class="hljs-params"></span>) </span>{ ... }
+Parent4._setSuper = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> Parent </span>) </span>{ <span class="hljs-keyword">this</span>.p4 = Parent; }
+<span class="hljs-comment">//</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params"> data </span>) </span>{
+<span class="hljs-comment">// Adding personal owned properties to the parent</span>
+<span class="hljs-keyword">this</span>.superUniqueProperty.call(<span class="hljs-keyword">this</span>, data);
+<span class="hljs-comment">// own properties of the constructor and/or overrides</span>
+<span class="hljs-keyword">this</span>.props = <span class="hljs-number">1</span>;
+}
+Child._setSuper = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> Parent </span>) </span>{
+<span class="hljs-keyword">this</span>.superUniqueProperty = Parent;
+}
+<span class="hljs-comment">// Constructor with nested construction of a chain of prototypes</span>
+<span class="hljs-keyword">var</span> Inheritor = inherit.extend(Child, Parent1, Parent2, Parent3, Parent4);</pre>
+    
   
 
   
@@ -292,42 +375,28 @@ BUT super called like "super"</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='decorate'>
-      decorate
+    <h3 class='fl m0' id='inheritdecorate'>
+      inherit.decorate
     </h3>
     
     
   </div>
   
 
-  <p>return new class and used each seted class or objects like a decorator</p>
+  <p>Make a new class using every transferred class and/or Object as decorator.</p>
 
 
-  <div class='pre p1 fill-light mt0'>decorate</div>
-  
-  
-
-  
-  
-  
-  
+  <div class='pre p1 fill-light mt0'>inherit.decorate(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></div>
   
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>null</span> <code class='quiet'>(any)</code>
-	    : { Function||Object } - Any count classes first is a base and alse like a decorate for prototype
+  
+  
+  
+  
+  
 
-          </div>
-          
-        </div>
-      
-    </div>
   
 
   
@@ -335,8 +404,8 @@ BUT super called like "super"</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>any</code>:
-        : { Function } - Class child with child prototype wich inherit all parents
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>:
+        Class child with child prototype wich inherit all parents
 
       
     
@@ -344,6 +413,13 @@ BUT super called like "super"</p>
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">var</span> inherit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'s-inherit'</span>);
+<span class="hljs-keyword">var</span> DecoratedClass = inherit.decorate(Class, Parent, Grandpa, {<span class="hljs-attr">pa_of</span>: <span class="hljs-string">'grandpa'</span>});</pre>
+    
   
 
   
@@ -369,7 +445,9 @@ BUT super called like "super"</p>
   </div>
   
 
-  <p>EXPORTS</p>
+  <p>defination on platforms (both variants on platform like Electron)</p>
+<p>bower i --save s-inherit</p>
+<p>npm i --save s-inherit</p>
 
 
   <div class='pre p1 fill-light mt0'>exports</div>
@@ -391,6 +469,15 @@ BUT super called like "super"</p>
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-built_in">window</span>.inherit                      <span class="hljs-comment">// in browser</span></pre>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">var</span> inherit = <span class="hljs-built_in">require</span>(<span class="hljs-string">'s-inherit'</span>)  <span class="hljs-comment">// in Node.js</span></pre>
+    
   
 
   
