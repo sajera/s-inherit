@@ -7,7 +7,7 @@ var anonymous = '/** @ignore */\n(function () {\'use strict\';\n<%= contents %>\
 var license = '/*\n * s-inherit version '+pkg.version+' at '+date+
     '\n * @license MIT License Copyright (c) 2016 Serhii Perekhrest <allsajera@gmail.com> ( Sajera )\
     \n */\n<%= contents %> ';
-console.log('pkg', pkg);
+
 function src ( name ) {
     return gulp.src(['lib/*.js'])
         .pipe(require('gulp-order')([ // queue of files
@@ -47,7 +47,7 @@ gulp.task('test', function ( done ) {
 
 gulp.task('build', ['concat', 'minify'], function () {
     gulp.start('lint');
-    // gulp.start('test');
+    gulp.start('test');
 });
 
 gulp.task('watch', ['build'], function () {
