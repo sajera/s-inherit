@@ -5,10 +5,6 @@
 s-inherit
 ===============
 
-An easy way to make inheritance classes
-
-**Let me introduce an easy way to make inheritance classes.**
-
 ### installation for ```Node.js```
 
 ```shell
@@ -21,177 +17,135 @@ npm i s-inherit --save
 bower i s-inherit --save
 ```
 
+**An easy way to make inheritance constructors for "ES5".**
+
 Inherit
 --------------
 
 Node util "inherits" gives the mode of inheritance. 
 
-```javascript
-function Dummy () {}
-Dummy.prototype = {
-    constructor: Dummy,
-    test: function ( some ) {
-        console.log('Dummy ', some);
-    }
-};
-function Base () {
-    Base.super.call(this);
-    this.source = 'source'
-}
-Base.prototype = {
-    constructor: Base,
-    test: function ( some ) { // yes rewrite to "super" (not "_super" or "super_") 
-        Base.super.prototype.test('Base '+this.source+' '+ some);
-    }
-};
-
+```JavaScript
 var inherit = require('s-inherit');
-// rewrite class
-inherit(Base, Dummy);
+// rewrite constructor
+inherit(Child, Parent); // the same as util.inherits
 // make a instance
-var instance = new Base();
-// use method which used parent method
-instance.test('test'); // => Dummy Base source test
+var instance = new Child();
 ```
 
-
-    
-Make class from others
+Make constructor from others
 --------------
 
-When classes inheritance, class which inherit got a link to super and broken for origin.Thoughts on the re-use base classes led to the idea - to create a new class that inherits but does not overwrite the other (basic / decorating). This results in the creation of necessary classes on the basis of any previously created and does not prevent their reuse further.
+When constructor inheritance, constructor which inherit got a link to super and broken for origin.Thoughts on the re-use base constructor led to the idea - to create a new constructor that inherits but does not overwrite the other (basic / decorating). This results in the creation of necessary construtors on the basis of any previously created and does not prevent their reuse further.
 
 
-Example 
---------------
+**Example:**
 
 ```javascript
 var inherit = require('s-inherit');
-
-// without broken origin classes
-var NewClassFromAll = inherit.extend(Dummy, Base1, Base2, Foo3, Foo4, Decor5, Decor6);
-
+// without broken origin constructor
+var NewConstructor = inherit.extend(Child, Parent1, Parent2, Parent3);
 ```
+>**Note:** without changing "Child".  (NewConstructor != Child)
 
-usually expects a dummy for class
+
+
+#### usually expects a interface for future class.
+
 ```javascript
-function Dummy () {
-    console.log('Dummy', arguments);
-    this.source = 'Dummy';
+function Interface1 () {
+    ...
 }
-Dummy.prototype = {
-    constructor: Dummy,
-    instance: 'Dummy',
-    t1: 1,
-    t2: 2,
-    t3: 3,
-    t4: 4,
-    t5: 5,
-    test: function ( some ) {
-        console.log('dummy', some);
-    }
+Interface1.prototype = {
+    ...
+};
+// different interfaces
+function Interface2 () {
+    ...
+}
+Interface2.prototype = {
+    ...
 };
 ```
 
-after that, setting a base functionality (by type of model or something like that)
+#### after that, setting a base functionality.
 
 ```javascript
 function Base1 () {
-    console.log('Base1', arguments);
-    this.source1 = 'Base1';
+    ...
 }
 Base1.prototype = {
-    constructor: Base1,
-    instance: 'Base1',
-    t1: 'Base1',
-    test1: function ( some ) {
-        this.test(' 1 '+ some);
-    },
+    ...
 };
-
+// different functionality
 function Base2 () {
-    console.log('Base2', arguments);
-    this.source2 = 'Base2';
+    ...
 }
 Base2.prototype = {
-    constructor: Base2,
-    instance: 'Base2',
-    t2: 'Base2',
-    test2: function ( some ) {
-        this.test1(' 2 '+ some);
-    },
+    ...
 };
 ```
 
 
-after that, we want set a functionality the model for this implementation
+#### after that, we want set a realization.
 
 ```javascript
-function Foo3 () {
-    console.log('Foo3', arguments);
-    this.source3 = 'Foo3';
+function Foo1 () {
+    ...
 }
-Foo3.prototype = {
-    constructor: Foo3,
-    instance: 'Foo3',
-    t3: 'Foo3',
-    test3: function ( some ) {
-        this.test2(' 3 '+ some);
-    },
+Foo1.prototype = {
+    ...
 };
-
-function Foo4 () {
-    console.log('Foo4', arguments);
-    this.source4 = 'Foo4';
+// different realizations
+function Foo2 () {
+    ...
 }
-Foo4.prototype = {
-    constructor: Foo4,
-    instance: 'Foo4',
-    t4: 'Foo4',
-    test4: function ( some ) {
-        this.test3(' 4 '+ some);
-    },
+Foo2.prototype = {
+    ...
 };
 ```
 
-after that, we want a decorate the model for this implementation
-
-```javascript
-function Decor5 () {
-    console.log('Decor5', arguments);
-    this.source5 = 'Decor5';
-}
-
-function Decor6 () {
-    console.log('Decor6', arguments);
-    this.source6 = 'Decor6';
-}
-```
-
-Example usage compilation of class
+Example usage compilation for constructors
 --------------
 
 ```javascript
 var inherit = require('s-inherit');
-// create class without broken origin classes
-var NewClassFromAll = inherit.extend(Dummy, Base1, Base2, Foo3, Foo4, Decor5, Decor6);
-// instance
-var instanceAll = new NewClassFromAll();
-// there is no need to drag all
-var NewClassFromBase = inherit.extend(Dummy, Base1, Foo2, Decor5);
-// use only necessary functionality
-var NewClassLightBase = inherit.extend(Dummy, Base2, Foo3, Decor6);
-
+// create constructor without broken origin constructor and prototypes
+var Model1 = inherit.extend(Foo1, Base1, Interface1);
+var Model2 = inherit.extend(Foo2, Base2, Interface2);
+// or maybe Some thing more complicated
+// in most cases it really hard to merge
+var Model3 = inherit.extend(Model1, Base2, Interface2);
 ```
+>**Note:** But if each of Constructor do not have relation based on inherent and still have the original version. It can be not so hard.
+
+
+Decorate
+--------------
+
+Sometimes you need to make a decoration of the model, adding methods and fields for a particular implementation without affecting its inheritance, and without breaking the original class. How can it be.
+
+
+**Example:**
+
+```javascript
+var inherit = require('s-inherit');
+// make new class decorated for existing class of existing decorator and addition source
+var Decorated = inherit.decorate(Foo1, {top: 100}, {top: 10, left: 100});
+var instance = new Decorated( 'test' );
+instance.top; // => 100 if it not overided from "Foo" constructor
+```
+>**Note:** scenery method ignores the prototypes of the classes.
+
+
 
 Super
 --------------
 
->**say -** "We wanna get a SUPER - and that super must be a unique for each model which we defined"
+**say -** "We wanna get a SUPER - and that super must be a unique for each model which we defined"
 
 This is a difficult moment. But I have a proposal for its decision. Since multiple inheritance, the main problem for a unique index transmission, within a single prototype class parent.
 
->**ans -** "I offer to attend to yourself about how to point out the Super"
+**ans -** "I offer to attend to yourself about how to point out the Super"
 
 Extension expects a special method called "_setSuper" and correctly sends the super of model.
 
@@ -226,29 +180,7 @@ Foo4._setSuper = function ( Parent ) {
 };
 ```
 
-Decorate
---------------
-
-Sometimes you need to make a decoration of the model, adding methods and fields for a particular implementation without affecting its inheritance, and without breaking the original class. How can it be.
-
-
-**Example:**
-
-```javascript
-var inherit = require('s-inherit');
-
-// make new class decorated for existing class of existing decorator and addition source
-var DecoratedFoo4 = inherit.decorate(Foo4, Decor6, {
-    anotherSource: 'anotherSource'
-});
-
-var instance = new DecoratedFoo4( 'test' );
-
-instance.__proto__ == Foo4.prototype;
-```
->**Note:** scenery method ignores the prototypes of the classes and objects used for decorations .
-
-
+#### [```API documentation ```](https://github.com/sajera/s-inherit/blob/master/doc/API.md)
 
 [npm-image]: https://badge.fury.io/js/s-inherit.svg
 [npm-url]: https://npmjs.org/package/s-inherit
