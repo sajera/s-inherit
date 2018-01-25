@@ -24,12 +24,12 @@ Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference
 Make new Constructor with nested construction of a chain of prototypes
 hard relation of child constructor to parent constructor.
 The "super" defined from static method "\_setSuper".
-If it absent Constructor lose ability call to Parent context.
+If it absent Constructor lose ability call to Parent.
 
 **Parameters**
 
--   `Parent` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** constructor which will be installed as "super"
 -   `Child` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** constructor to extend
+-   `Parent` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** constructor which will be installed as "super"
 
 **Examples**
 
@@ -48,7 +48,7 @@ Child._setSuper = function ( Parent ) {
 this.superUniqueProperty = Parent;
 }
 // Constructor with nested construction of a chain of prototypes
-var Inheritor = inherit._related(Parent, Child);
+var Inheritor = inherit._related(Child, Parent);
 ```
 
 Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** constructor
@@ -63,7 +63,9 @@ No limit for nested construction of a chain of prototypes.
 
 **Parameters**
 
--   `Ctor` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** constructor to extend
+-   `Child` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** constructor to extend
+-   `Parent` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** constructor which will be installed as "super"
+-   `Parent` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** constructor which will be installed as "super" as many times as you need
 
 **Examples**
 
@@ -96,16 +98,18 @@ Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference
 
 ## inherit.decorate
 
-Make a new class using every transferred class and/or Object as decorator.
+Make a new constructor using every transferred class and/or Object as decorator.
+Constructor steel have it own prototype, but have all own props from all decorators.
+Can be used as binded Constructor properties.
 
 **Examples**
 
 ```javascript
 var inherit = require('s-inherit');
-var DecoratedClass = inherit.decorate(Class, Parent, Grandpa, {pa_of: 'grandpa'});
+var DecoratedClass = inherit.decorate(Cube, {top: 100, left: 100}, {width: 100, heigh: 100, long: 100});
 ```
 
-Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** Class child with child prototype wich inherit all parents
+Returns **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** constructor
 
 ## exports
 
