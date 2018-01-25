@@ -1,5 +1,5 @@
 /*
- * s-inherit version 1.0.3 at 2018-01-25
+ * s-inherit version 1.1.0 at 2018-01-25
  * @license MIT License Copyright (c) 2016 Serhii Perekhrest <allsajera@gmail.com> ( Sajera )    
  */
 /** @ignore */
