@@ -1,5 +1,5 @@
 /*
- * s-inherit version 1.0.3 at 2018-01-24
+ * s-inherit version 1.0.3 at 2018-01-25
  * @license MIT License Copyright (c) 2016 Serhii Perekhrest <allsajera@gmail.com> ( Sajera )    
  */
 /** @ignore */
@@ -49,13 +49,13 @@ function inherit ( ctor, superCtor ) {
 }
 
 
- /**
-  * @description
+/**
+ * @description
     Make new Constructor with nested construction of a chain of prototypes
     hard relation of child constructor to parent constructor.
     The "super" defined from static method "_setSuper".
-    If it absent Constructor lose ability call to Parent context.
-  * @example
+    If it absent Constructor lose ability call to Parent.
+ * @example
      var inherit = require('s-inherit');
      //
      function Parent () { ... }
@@ -70,15 +70,15 @@ function inherit ( ctor, superCtor ) {
         this.superUniqueProperty = Parent;
     }
     // Constructor with nested construction of a chain of prototypes
-    var Inheritor = inherit._related(Parent, Child);
-  * @param { Function } Parent - constructor which will be installed as "super"
-  * @param { Function } Child - constructor to extend
-  * @returns { Function } - constructor
-  * @function inherit._related
-  * @public
-  */
+    var Inheritor = inherit._related(Child, Parent);
+ * @param { Function } Child - constructor to extend
+ * @param { Function } Parent - constructor which will be installed as "super"
+ * @returns { Function } - constructor
+ * @function inherit._related
+ * @public
+ */
 inherit['_related'] = makeClass;
-function makeClass ( Parent, Child ) {
+function makeClass ( Child, Parent ) {
     function Super ( base ) { Object.assign(this, base); };
     function Class () {
         Parent.apply(this, Array.prototype.slice.call(arguments, 0));
@@ -123,33 +123,45 @@ function makeClass ( Parent, Child ) {
    }
    // Constructor with nested construction of a chain of prototypes
    var Inheritor = inherit.extend(Child, Parent1, Parent2, Parent3, Parent4);
- * @param { Function } Ctor - constructor to extend
- * @param ...
+ * @param { Function } Child - constructor to extend
+ * @param { Function } Parent - constructor which will be installed as "super"
+ * @param { Function } [Parent] - constructor which will be installed as "super" as many times as you need
  * @returns { Function } - constructor
  * @function inherit.extend
  * @public
  */
 inherit['extend'] = classExtend;
-function classExtend ( Result ) {
-    if ( typeof Result == 'function' ) {
-        for ( var key = 1; key < arguments.length; key ++ ) {
-            if ( typeof arguments[key] == 'function' ) {
-                Result = makeClass(Result, arguments[key]);
-            } else { throw new TypeError('The constructor to "inherit" must be a function'); }
-        }
-        return Result;
-    } else throw new TypeError('The constructor to "inherit" must be a function');
+function classExtend () {
+    var i = arguments.length, Result = arguments[i-1], Parent, Child;
+    // for ( var key = arguments.length-1; key; key -- ) {
+    //     if ( typeof arguments[key] == 'function' ) {
+    //         Result = makeClass(Result, arguments[key]);
+    //     } else { throw new TypeError('The constructor to "inherit" must be a function'); }
+    // }
+    do {
+        i--;
+        Parent = Result;
+        Child = arguments[i-1];
+        if ( typeof Child == 'function' && typeof Parent == 'function' ) {
+            Result = makeClass(Child, Parent);
+        } else { throw new TypeError('The constructor to "inherit" must be a function'); }
+
+        console.log(i);
+    } while ( i > 1 )
+    return Result;
 }
 
 /**
  * @description
-    Make a new class using every transferred class and/or Object as decorator.
+    Make a new constructor using every transferred class and/or Object as decorator.
+    Constructor steel have it own prototype, but have all own props from all decorators.
+    Can be used as binded Constructor properties.
  * @example
     var inherit = require('s-inherit');
-    var DecoratedClass = inherit.decorate(Class, Parent, Grandpa, {pa_of: 'grandpa'});
- * @param { Function||Object } - Any count classes first is a base and alse like a decorate for prototype
- * @param ...
- * @returns { Function } - Class child with child prototype wich inherit all parents
+    var DecoratedClass = inherit.decorate(Cube, {top: 100, left: 100}, {width: 100, heigh: 100, long: 100});
+ * @param { Function||Object } source - constructor to extend
+ * @param { Function||Object } decorator - Expand the personally owned property
+ * @returns { Function } - constructor
  * @function inherit.decorate
  * @public
  */
@@ -157,7 +169,7 @@ inherit['decorate'] = decorateClass;
 function decorateClass () {
     var args = arguments;
     function Class () {
-        for ( var key = 0; key < args.length; key ++ )
+        for ( var key = args.length-1; key >= 0; key -- )
             if ( typeof args[key] == 'function' ) args[key].apply(this, Array.prototype.slice.call(arguments, 0));
             else if ( typeof args[key] == 'object' ) Object.assign(this, args[key]);
     }
